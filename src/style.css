@@ -1,0 +1,38 @@
+/* src/components/PayPal.css */
+#paypal-form {
+    background-color: #f5f5f5;
+    border-radius: 8px;
+    padding: 20px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  }
+  
+  h2 {
+    color: #0070ba; /* PayPal blue color */
+  }
+  
+  button {
+    background-color: #0070ba;
+    border-color: #0070ba;
+  }
+  
+  button:hover {
+    background-color: #005ea6;
+    border-color: #005ea6;
+  }
+  
+  .text-center {
+    text-align: center;
+  }
+  /* src/components/CustomSpinner.css */
+.spinner-overlay {
+  position: fixed; /* Fixes the spinner in place */
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center; /* Vertically center the spinner */
+  justify-content: center; /* Horizontally center the spinner */
+  background: rgba(255, 255, 255, 0.8); /* Optional: semi-transparent background */
+  z-index: 9999; /* Ensure spinner is on top of other content */
+}
