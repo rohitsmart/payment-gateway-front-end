@@ -1,8 +1,9 @@
-// src/components/StripePayment.js
 import React, { useState, useEffect } from 'react';
 import { Container, Row, Col, Form, FormGroup, Label, Input, Button, Alert } from 'reactstrap';
 import './StripePayment.css'; // Import custom CSS for additional styling
 import CustomSpinner from './CustomSpinner';
+import { post } from '../assets/API/services'; // Import post function from services
+import endpoints from '../assets/API/Endpoint'; // Import endpoints
 
 function StripePayment() {
   const [amount, setAmount] = useState('');
@@ -18,17 +19,26 @@ function StripePayment() {
   const [loading, setLoading] = useState(false); // New state for loading
 
   useEffect(() => {
-    // Mock API data
-    const fetchMockData = () => {
-      setTimeout(() => {
-        setPrice(150); // Mock price
-        setOrderId('ORD112233'); // Mock order ID
-        setTimestamp(new Date().toISOString()); // Mock timestamp
-        setAmount(150); // Mock amount
-      }, 500); // Simulate network delay
+    // Fetch real payment details from API
+    const fetchPaymentDetails = async () => {
+      try {
+        const params = new URLSearchParams(window.location.search);
+        const transactionId = params.get('transactionID');
+
+        if (transactionId) {
+          const data = await post(endpoints.PAYMENT_ENDPOINTS.ORDER_DETAILS_ENDPOINT, {}, null, { transactionID: transactionId });
+          setPrice(data.amount);
+          setOrderId(data.orderId);
+          setTimestamp(new Date().toISOString());
+          setAmount(data.amount);
+        }
+      } catch (err) {
+        setError('Failed to fetch payment details');
+        console.error('Error fetching payment details:', err);
+      }
     };
 
-    fetchMockData();
+    fetchPaymentDetails();
 
     // Timer logic
     const interval = setInterval(() => {
@@ -62,8 +72,8 @@ function StripePayment() {
     };
 
     try {
-      // Simulate an API call
-      console.log('Submitting payment details:', paymentDetails);
+      // Send payment details to the backend
+      await post(endpoints.PAYMENT_ENDPOINTS.STRIPE, paymentDetails);
       setSuccess(true);
       setError(null);
     } catch (err) {

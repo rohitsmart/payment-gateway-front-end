@@ -1,22 +1,18 @@
 import React from 'react';
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import Header from './components/Header';
-import DebitCard from './components/DebitCard';
-import CreditCard from './components/CreditCard';
-import PayPal from './components/PayPal';
+import PaymentDetails from './screen/PaymentDetails';
 import StripePayment from './components/StripePayment';
-import CustomSpinner from './components/CustomSpinner';
-
+import CustomToaster from './components/custom/CustomToaster'
 function App() {
   return (
     <Router>
+      <CustomToaster />
+
       <Header />
       <Routes>
-        <Route path="/" element={<CustomSpinner />} />
-        <Route path="/credit" element={<CreditCard />} />
-        <Route path="/paypal" element={<PayPal />} />
-        <Route path="/stripe" element={<StripePayment />} />
-
+      <Route path="/payment-details" element={<PaymentDetails />} />
+      <Route path="/stripe-payment" element={<StripePayment />} />
 
       </Routes>
     </Router>
