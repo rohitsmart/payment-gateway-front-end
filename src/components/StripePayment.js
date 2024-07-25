@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Container, Row, Col, Form, FormGroup, Label, Input, Button, Alert } from 'reactstrap';
+import { Container, Row, Col, Form, FormGroup, Label, Input, Button } from 'reactstrap';
 import { useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import './StripePayment.css';
@@ -22,7 +22,9 @@ function StripePayment() {
   const [success, setSuccess] = useState(false);
   const [loading, setLoading] = useState(false);
   const { amount, transactionId, orderId } = paymentState;
-console.log("amount from redux ",amount)
+
+  console.log("amount from redux ", amount);
+
   useEffect(() => {
     if (!transactionId) {
       setError('Transaction ID not found');
@@ -59,12 +61,19 @@ console.log("amount from redux ",amount)
 
     try {
       await post(endpoints.PAYMENT_ENDPOINTS.STRIPE, paymentDetails);
-      setSuccess(true);
-      setError(null);
+      setTimeout(() => {
+        setLoading(false);
+        setSuccess(true);
+        setError(null);
+      }, 5000);
     } catch (err) {
-      setError('Failed to process payment');
-    } finally {
-      setLoading(false);
+      setTimeout(() => {
+        setLoading(false);
+        setError('Failed to process payment');
+        setTimeout(() => {
+
+        }, 5000);
+      }, 5000);
     }
   };
 
