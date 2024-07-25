@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import { Container, Row, Col, Form, FormGroup, Label, Input, Button, Alert } from 'reactstrap';
-import './StripePayment.css'; // Import custom CSS for additional styling
+import './StripePayment.css';
 import CustomSpinner from './CustomSpinner';
-import { post } from '../assets/API/services'; // Import post function from services
-import endpoints from '../assets/API/Endpoint'; // Import endpoints
+import { post } from '../assets/API/services';
+import endpoints from '../assets/API/Endpoint';
 
 function StripePayment() {
   const [amount, setAmount] = useState('');
@@ -16,10 +16,9 @@ function StripePayment() {
   const [timer, setTimer] = useState(60);
   const [error, setError] = useState(null);
   const [success, setSuccess] = useState(false);
-  const [loading, setLoading] = useState(false); // New state for loading
+  const [loading, setLoading] = useState(false);
 
   useEffect(() => {
-    // Fetch real payment details from API
     const fetchPaymentDetails = async () => {
       try {
         const params = new URLSearchParams(window.location.search);
@@ -39,27 +38,24 @@ function StripePayment() {
     };
 
     fetchPaymentDetails();
-
-    // Timer logic
     const interval = setInterval(() => {
       setTimer((prevTimer) => {
         if (prevTimer === 1) {
           clearInterval(interval);
-          handleSubmit(); // Submit form after 60 seconds
+          handleSubmit();
           return 0;
         }
         return prevTimer - 1;
       });
     }, 1000);
 
-    // Cleanup interval on unmount
     return () => clearInterval(interval);
   }, []);
 
   const handleSubmit = async (event) => {
     if (event) event.preventDefault();
 
-    setLoading(true); // Start loading
+    setLoading(true);
 
     const paymentDetails = {
       amount,
@@ -72,14 +68,13 @@ function StripePayment() {
     };
 
     try {
-      // Send payment details to the backend
       await post(endpoints.PAYMENT_ENDPOINTS.STRIPE, paymentDetails);
       setSuccess(true);
       setError(null);
     } catch (err) {
       setError('Failed to process payment');
     } finally {
-      setLoading(false); // End loading
+      setLoading(false);
     }
   };
 

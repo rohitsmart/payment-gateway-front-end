@@ -39,6 +39,8 @@ console.log(transactionId)
           showToast('error', 'Error fetching payment details');
           setLoading(false);
           console.error('Error fetching payment details:', err);
+          navigate('/server-error');
+
         }
       };
 

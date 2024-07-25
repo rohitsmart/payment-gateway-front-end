@@ -36,3 +36,56 @@
   background: rgba(255, 255, 255, 0.8); /* Optional: semi-transparent background */
   z-index: 9999; /* Ensure spinner is on top of other content */
 }
+
+
+
+.server-error-page {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  background-color: #f8f9fa;
+}
+
+.error-container {
+  text-align: center;
+  padding: 2rem;
+  border: 1px solid #dee2e6;
+  border-radius: 0.5rem;
+  background-color: #fff;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.error-title {
+  font-size: 5rem;
+  color: #dc3545;
+  margin-bottom: 1rem;
+}
+
+.error-message {
+  font-size: 1.25rem;
+  margin-bottom: 1rem;
+}
+
+
+.home-page {
+  padding: 50px 0;
+}
+
+.payment-option {
+  margin: 20px 0;
+  cursor: pointer;
+}
+
+.payment-option img {
+  max-width: 100%;
+  height: auto;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  padding: 10px;
+}
+
+.payment-option button {
+  width: 100%;
+}
+
