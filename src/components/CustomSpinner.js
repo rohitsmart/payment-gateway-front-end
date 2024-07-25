@@ -1,7 +1,7 @@
 import React from 'react';
 import { CirclesWithBar } from 'react-loader-spinner';
 
-function CustomSpinner() {
+function CustomSpinner({ message }) {
   return (
     <div className="spinner-overlay">
       <CirclesWithBar
@@ -16,6 +16,7 @@ function CustomSpinner() {
         wrapperClass=""
         visible={true}
       />
+      {message && <p className="mt-3">{message}</p>}
     </div>
   );
 }
